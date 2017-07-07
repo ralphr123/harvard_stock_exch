@@ -300,6 +300,6 @@ def history():
         return apology("No history available")
         
 
-if __name == "__main__":
+if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
     app.run(host="0.0.0.0", port=port)
