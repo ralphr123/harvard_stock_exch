@@ -12,7 +12,7 @@ import urllib.request
 from flask.exthook import ExtDeprecationWarning
 from warnings import simplefilter
 simplefilter("ignore", ExtDeprecationWarning)
-
+import psycopg2
 
 def buylookup(x):
     """Look up quote for symbol."""
@@ -87,7 +87,7 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # configure CS50 Library to use SQLite database
-db = SQL("sqlite:///finance.db")
+db = SQL(os.environ.get("DATABASE_URL") or "sqlite:///finance.db") 
 
 
 @app.route("/")
