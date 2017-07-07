@@ -51,16 +51,16 @@ def buylookup(x):
             
                 
     types = types()
-    # return stock's name (as a str), price (as a float), and (uppercased) symbol (as a str)
+    # return stock"s name (as a str), price (as a float), and (uppercased) symbol (as a str)
     stockinfo = {
-        'name': row[1],
-        'price': price,
-        'symbol': row[0].upper(),
-        'shares': types,
+        "name": row[1],
+        "price": price,
+        "symbol": row[0].upper(),
+        "shares": types,
         
     }
-    stockinfo['total'] = stockinfo['price']*stockinfo['shares']
-    stockinfo['cash'] = 10000 - stockinfo['total']
+    stockinfo["total"] = stockinfo["price"]*stockinfo["shares"]
+    stockinfo["cash"] = 10000 - stockinfo["total"]
     return stockinfo
     
 
@@ -68,7 +68,7 @@ def buylookup(x):
 # configure application
 app = Flask(__name__)
 
-# ensure responses aren't cached
+# ensure responses aren"t cached
 if app.config["DEBUG"]:
     @app.after_request
     def after_request(response):
@@ -97,7 +97,7 @@ def index():
     symbol1 = db.execute("SELECT * FROM stocks WHERE userid = :id", id = session["user_id"])
     newbalance = float(balance)
     for stock in symbol1:
-        stock['total'] = usd(stock['total'])
+        stock["total"] = usd(stock["total"])
         balance = usd(newbalance)
     return render_template("index.html", mainbalance=balance, symbol = symbol1)
 
@@ -117,7 +117,7 @@ def buy():
         elif not shares.isdigit():
             return apology("invalid shares")
         else:
-            already = db.execute('SELECT * FROM stocks WHERE symbol = :used AND userid=:id', used = request.form.get('buysymbol'), id = session["user_id"])
+            already = db.execute("SELECT * FROM stocks WHERE symbol = :used AND userid=:id", used = request.form.get("buysymbol"), id = session["user_id"])
             stockinfo = buylookup(x)
             if len(already) == 1:
                 newb = (db.execute("SELECT balance FROM users WHERE id=:id", id = session["user_id"])[0]["balance"])
@@ -125,18 +125,18 @@ def buy():
                     newb = (db.execute("SELECT balance FROM users WHERE id=:id", id = session["user_id"])[0]["balance"])
                     newb1 = usd(float(newb))
                     stockinfo = buylookup(x)
-                    db.execute('UPDATE stocks SET sharesbought = sharesbought + :newbought WHERE symbol = :symbol and userid = :id', 
-                    newbought = request.form.get('buyshares'), symbol = request.form.get('buysymbol'), id = session["user_id"])
-                    db.execute('UPDATE stocks SET total = total + :newtotal WHERE symbol = :symbol and userid = :id', 
-                    newtotal = stockinfo['total'], symbol = request.form.get('buysymbol'), id = session["user_id"])
+                    db.execute("UPDATE stocks SET sharesbought = sharesbought + :newbought WHERE symbol = :symbol and userid = :id", 
+                    newbought = request.form.get("buyshares"), symbol = request.form.get("buysymbol"), id = session["user_id"])
+                    db.execute("UPDATE stocks SET total = total + :newtotal WHERE symbol = :symbol and userid = :id", 
+                    newtotal = stockinfo["total"], symbol = request.form.get("buysymbol"), id = session["user_id"])
                     date = datetime.datetime.now().strftime("%y-%m-%d-%H-%M")
-                    db.execute('UPDATE users SET balance = balance - :cost WHERE id = :id', 
-                    cost = stockinfo['total'], id = session["user_id"])
+                    db.execute("UPDATE users SET balance = balance - :cost WHERE id = :id", 
+                    cost = stockinfo["total"], id = session["user_id"])
                     db.execute("INSERT INTO history (symbol, sharesbought, date, userid) VALUES(:symbol, :sharesbought, :date, :userid)", 
                     symbol=x, sharesbought=shares, date = date, userid=session["user_id"])
                     newb1 = usd(float(newb))
-                    return render_template("bought.html", name=stockinfo['name'], price=stockinfo['price'], symbol=stockinfo['symbol'], 
-                    shares=stockinfo['shares'], total=stockinfo['total'], cash=stockinfo['cash'], balance=newb1)
+                    return render_template("bought.html", name=stockinfo["name"], price=stockinfo["price"], symbol=stockinfo["symbol"], 
+                    shares=stockinfo["shares"], total=stockinfo["total"], cash=stockinfo["cash"], balance=newb1)
                 else:
                     return apology("not enough money")
             else:
@@ -147,10 +147,10 @@ def buy():
                     newb1 = usd(float(newb))
                     stockinfo = buylookup(x)
                     db.execute("INSERT INTO stocks (symbol, sharesbought, userid, total) VALUES(:symbol, :sharesbought, :userid, :stocktotal)", 
-                    symbol=x, sharesbought=shares, userid=session["user_id"], stocktotal= stockinfo['total'])
-                    db.execute("UPDATE users SET balance = balance - :total WHERE id=:id", total=stockinfo['total'], id = session["user_id"])
-                    return render_template("bought.html", name=stockinfo['name'], price=stockinfo['price'], symbol=stockinfo['symbol'], 
-                    shares=stockinfo['shares'], total=stockinfo['total'], cash=stockinfo['cash'], balance=newb1)
+                    symbol=x, sharesbought=shares, userid=session["user_id"], stocktotal= stockinfo["total"])
+                    db.execute("UPDATE users SET balance = balance - :total WHERE id=:id", total=stockinfo["total"], id = session["user_id"])
+                    return render_template("bought.html", name=stockinfo["name"], price=stockinfo["price"], symbol=stockinfo["symbol"], 
+                    shares=stockinfo["shares"], total=stockinfo["total"], cash=stockinfo["cash"], balance=newb1)
                 else:
                     return apology("not enough money")
 
@@ -263,8 +263,8 @@ def sell():
         elif not shares.isdigit():
             return apology("invalid shares")
         else:
-            already = db.execute('SELECT * FROM stocks WHERE symbol = :used AND userid=:id', used = request.form.get('symbol'), id = session["user_id"])
-            checkbought = db.execute('SELECT sharesbought FROM stocks WHERE symbol = :symbol and userid = :id', symbol = request.form.get('symbol'), id = session["user_id"])
+            already = db.execute("SELECT * FROM stocks WHERE symbol = :used AND userid=:id", used = request.form.get("symbol"), id = session["user_id"])
+            checkbought = db.execute("SELECT sharesbought FROM stocks WHERE symbol = :symbol and userid = :id", symbol = request.form.get("symbol"), id = session["user_id"])
             
             if len(already) == 1:
                 if checkbought[0]["sharesbought"] < int(request.form.get("shares")):
@@ -276,15 +276,15 @@ def sell():
                     stockinfo = buylookup(x)
                     newb = db.execute("SELECT balance FROM users WHERE id=:id", id = session["user_id"])[0]["balance"]
                     newb1 = usd(float(newb))
-                    db.execute('UPDATE stocks SET sharesbought = sharesbought - :newbought WHERE symbol = :symbol and userid = :id', 
-                    newbought = request.form.get('shares'), symbol = request.form.get('symbol'), id = session["user_id"])
-                    db.execute('UPDATE stocks SET total = total - :total WHERE symbol = :symbol and userid = :id', 
-                    total = stockinfo['total'], symbol = request.form.get('symbol'), id = session["user_id"])
+                    db.execute("UPDATE stocks SET sharesbought = sharesbought - :newbought WHERE symbol = :symbol and userid = :id", 
+                    newbought = request.form.get("shares"), symbol = request.form.get("symbol"), id = session["user_id"])
+                    db.execute("UPDATE stocks SET total = total - :total WHERE symbol = :symbol and userid = :id", 
+                    total = stockinfo["total"], symbol = request.form.get("symbol"), id = session["user_id"])
                     db.execute("INSERT INTO history (symbol, sharesbought, date, userid) VALUES(:symbol, :sharesbought, :date, :userid)", 
                     symbol=xa, sharesbought=shares, date = date, userid=session["user_id"])
-                    db.execute("UPDATE users SET balance = balance + :total WHERE id=:id", total=stockinfo['total'], id = session["user_id"])
-                    return render_template("bought.html", name=stockinfo['name'], price=stockinfo['price'], symbol=stockinfo['symbol'], 
-                    shares=stockinfo['shares'], total=stockinfo['total'], cash=stockinfo['cash'], balance=newb1)
+                    db.execute("UPDATE users SET balance = balance + :total WHERE id=:id", total=stockinfo["total"], id = session["user_id"])
+                    return render_template("bought.html", name=stockinfo["name"], price=stockinfo["price"], symbol=stockinfo["symbol"], 
+                    shares=stockinfo["shares"], total=stockinfo["total"], cash=stockinfo["cash"], balance=newb1)
             else:
                 return apology("no available shares")
             
@@ -292,7 +292,7 @@ def sell():
 @app.route("/history")
 @login_required
 def history():
-    already = db.execute('SELECT * FROM history WHERE userid=:id', id = session["user_id"])
+    already = db.execute("SELECT * FROM history WHERE userid=:id", id = session["user_id"])
     if len(already) >= 1:
         symbol2 = db.execute("SELECT * FROM history WHERE userid = :id", id = session["user_id"])
         return render_template("history.html", symbol = symbol2)
