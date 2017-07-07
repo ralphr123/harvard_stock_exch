@@ -1,0 +1,48 @@
+ {% extends "layout.html" %}
+
+{% block title %}
+    Main
+{% endblock %}
+
+{% block main %} 
+ <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>TOTAL</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td colspan="4"></td>
+                <td>{{ mainbalance }}</td>
+            </tr>
+        </tfoot>
+        <tbody>
+            
+                <tr>
+                    <td>{{ symbol }}</td>
+                    <td>{{ name }}</td>
+                    <td>{{ shares }}</td>
+                    <td>{{ price }}</td>
+                    <td>{{ total }}</td>
+                </tr>
+            
+            <tr>
+                <td colspan="4">CASH</td>
+                <td>{{ cash }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+            </main>
+            
+        </div>
+
+    </body>
+
+</html>
+{% endblock %}

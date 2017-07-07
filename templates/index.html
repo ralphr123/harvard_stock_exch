@@ -1,0 +1,44 @@
+ {% extends "layout.html" %}
+
+{% block title %}
+    Buy
+{% endblock %}
+
+{% block main %} 
+
+
+ <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Shares</th>
+                <th>TOTAL</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for index in symbol %}
+                <tr>
+                    <td>{{ index["symbol"] }}</td>
+                    <td>{{ index["sharesbought"] }}</td>
+                    <td>{{ index["total"] }}</td>
+                </tr>
+            
+            {% endfor %}
+             <tr>
+                <td>BALANCE</td>
+                <td></td>
+                <td>{{ mainbalance }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+            </main>
+            
+        </div>
+
+    </body>
+
+</html>
+
+
+{% endblock %}

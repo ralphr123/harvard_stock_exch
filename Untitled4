@@ -1,0 +1,109 @@
+            already = 
+            db.execute('SELECT COUNT(1) FROM stocks WHERE symbol = :used AND id=:id', 
+            used = request.form.get('buysymbol'), id = session["user_id"])
+            if already:
+                stockinfo = buylookup(x)
+                db.execute('UPDATE stocks SET sharesbought = sharesbought + :newbought WHERE symbol = :symbol and id = :id', 
+                newbought = request.form.get('buyshares'), symbol = request.form.get('buysymbol'), id = session["user_id"])
+                db.execute('UPDATE stocks SET total = total + :newtotal WHERE symbol = :symbol and id = :id', 
+                newtotal = stockinfo['total'], symbol = request.form.get('buysymbol'), id = session["user_id"])
+                return render_template("index.html", name=stockinfo['name'], price=stockinfo['price'], symbol=stockinfo['symbol'], 
+                shares=stockinfo['shares'], total=stockinfo['total'], cash=stockinfo['cash'], balance=db.execute("SELECT balance FROM users WHERE id=:id", id = session["user_id"]))
+            else:
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            already = db.execute(COL_LENGTH('SELECT COUNT(1) FROM stocks WHERE symbol = :used AND id=:id', used = request.form.get('buysymbol'), id = session["user_id"]) IS NOT NULL)
+            
+            if already == 1:
+                stockinfo = buylookup(x)
+                db.execute('UPDATE stocks SET sharesbought = sharesbought + :newbought WHERE symbol = :symbol and id = :id', 
+                newbought = request.form.get('buyshares'), symbol = request.form.get('buysymbol'), id = session["user_id"])
+                db.execute('UPDATE stocks SET total = total + :newtotal WHERE symbol = :symbol and id = :id', 
+                newtotal = stockinfo['total'], symbol = request.form.get('buysymbol'), id = session["user_id"])
+                return render_template("index.html", name=stockinfo['name'], price=stockinfo['price'], symbol=stockinfo['symbol'], 
+                shares=stockinfo['shares'], total=stockinfo['total'], cash=stockinfo['cash'], balance=db.execute("SELECT balance FROM users WHERE id=:id", id = session["user_id"]))
+            else:
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+if already == 1:
+                stockinfo = buylookup(x)
+                db.execute('UPDATE stocks SET sharesbought = sharesbought + :newbought WHERE symbol = :symbol and id = :id', 
+                newbought = request.form.get('buyshares'), symbol = request.form.get('buysymbol'), id = session["user_id"])
+                db.execute('UPDATE stocks SET total = total + :newtotal WHERE symbol = :symbol and id = :id', 
+                newtotal = stockinfo['total'], symbol = request.form.get('buysymbol'), id = session["user_id"])
+                return render_template("index.html", name=stockinfo['name'], price=stockinfo['price'], symbol=stockinfo['symbol'], 
+                shares=stockinfo['shares'], total=stockinfo['total'], cash=stockinfo['cash'], balance=db.execute("SELECT balance FROM users WHERE id=:id", id = session["user_id"]))
+            else:
+                stockinfo = buylookup(x)
+                db.execute("INSERT INTO stocks (symbol, sharesbought, userid, total) VALUES(:symbol, :sharesbought, :userid, :stocktotal)", 
+                symbol=x, sharesbought=shares, userid=session["user_id"], stocktotal= stockinfo['total'])
+                db.execute("UPDATE users SET balance = balance - :total WHERE id=:id", total=stockinfo['total'], id = session["user_id"])
+                return render_template("index.html", name=stockinfo['name'], price=stockinfo['price'], symbol=stockinfo['symbol'], 
+                shares=stockinfo['shares'], total=stockinfo['total'], cash=stockinfo['cash'], balance=db.execute("SELECT balance FROM users WHERE id=:id", id = session["user_id"]))
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+             balance = db.execute("SELECT balance FROM users WHERE id=:id", id = session["user_id"])[0]["balance"]
+    symbol1 = db.execute("SELECT * FROM stocks WHERE userid = :id", id = session["user_id"])
+    for stock in symbol1:
+        stock['total'] = usd(stock['total'])
+    return render_template("index.html", mainbalance=balance, symbol = symbol1)
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+   
+    
+    background-image: url("http://brettdesigninc.com/wp-content/uploads/2015/05/Brett_Design_Wallpaper_PaperWash_CoolGray.png");

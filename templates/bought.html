@@ -1,0 +1,41 @@
+ {% extends "layout.html" %}
+
+{% block title %}
+    Buy
+{% endblock %}
+
+{% block main %} 
+ <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>TOTAL</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td>{{ symbol }}</td>
+                    <td>{{ name }}</td>
+                    <td>{{ shares }}</td>
+                    <td>{{ price }}</td>
+                    <td>{{ total }}</td>
+                </tr>
+            
+            <tr>
+                <td colspan="4">Previous Balance</td>
+                <td>{{ balance }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+            </main>
+            
+        </div>
+
+    </body>
+
+</html>
+{% endblock %}
