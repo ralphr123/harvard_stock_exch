@@ -5,3 +5,5 @@ The site is a game where one can simulate buying shares in the stock market with
 the actual stocks in real time. 
 
 I used HTML, CSS, and Javascript for the frontend. I used Python with Flask for the backend. All the work was done on the CS50 IDE. 
+
+This website is currently not hosted anywhere but the source code is available. 
